@@ -3,7 +3,7 @@ const db = require('../Config/db');
 const { createToken } = require('../Config/token.js');
 
 module.exports.registrationPage = (req, res) => {
-    return res.render('adminPannel/registration');
+    return res.render('adminPannel/registration.ejs');
 };
 
 module.exports.registration = async (req, res) => {
@@ -30,7 +30,7 @@ module.exports.registration = async (req, res) => {
 };
 
 module.exports.loginPage = (req, res) => {
-    return res.render('adminPannel/login');
+    return res.render('adminPannel/login.ejs');
 };
 
 module.exports.login = async (req, res) => {
@@ -101,5 +101,5 @@ module.exports.logout = (req, res) => {
 
 module.exports.home = (req, res) => {
     const currentUser = req.cookies.user;
-    return res.render('adminPannel/index', { currentUser });
+    return res.render('adminPannel/index.ejs', { currentUser });
 };
