@@ -30,7 +30,7 @@ module.exports.registration = async (req, res) => {
 };
 
 module.exports.loginPage = (req, res) => {
-    return res.render('login.ejs');
+    return res.render('index.ejs');
 };
 
 module.exports.login = async (req, res) => {
