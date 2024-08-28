@@ -3,7 +3,7 @@ const db = require('../Config/db');
 const { createToken } = require('../Config/token.js');
 
 module.exports.registerpage = (req, res) => {
-    return res.render('/registration.ejs');
+    return res.render('./registration.ejs');
 };
 
 module.exports.registration = async (req, res) => {
@@ -30,7 +30,7 @@ module.exports.registration = async (req, res) => {
 };
 
 module.exports.loginPage = (req, res) => {
-    return res.render('/login.ejs');
+    return res.render('./login.ejs');
 };
 
 module.exports.login = async (req, res) => {
@@ -119,5 +119,5 @@ module.exports.logout = async (req, res) => {
 
 module.exports.home = (req, res) => {
     const currentUser = req.cookies.user;
-    return res.render('/index.ejs', { currentUser });
+    return res.render('./index.ejs', { currentUser });
 };
