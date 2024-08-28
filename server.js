@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'userassets')));
 app.use(express.static(path.join(__dirname, 'adminAssets')));
 
 app.use('/', require('./routes/index'));
-app.get('/api', (req, res) => {
+app.get('/apgii', (req, res) => {
     res.status(200).send("Working API..!");
 });
 
