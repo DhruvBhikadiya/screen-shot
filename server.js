@@ -19,7 +19,7 @@ const io = socket(server, {
     }
 });
 
-app.use(express.json());
+app.use(express.urlencoded());
 app.use(cors());
 app.use(cp());
 
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'userassets')));
 app.use(express.static(path.join(__dirname, 'adminAssets')));
 
 app.use('/', require('./routes/index'));
-app.get('/apgii', (req, res) => {
+app.get('/api/', (req, res) => {
     res.status(200).send("Working API..!");
 });
 
@@ -149,7 +149,7 @@ io.on('connection', async (socket) => {
         };
         userId = binaryToString(id);
         const userSocketId = userSocket[userId];
-        io.to(userSocketId).emit(userClicked, (id));
+        socket.to(userSocketId).emit(userClicked, (id));
     });
 
     // const screenShareClicked = binaryEvent('screenShareClicked');
@@ -178,7 +178,7 @@ io.on('connection', async (socket) => {
         userId = binaryToString(id);
         const userSocketId = userSocket[userId];
         const start_screen_share = binaryEvent('start_screen_share');
-        io.to(userSocketId).emit(start_screen_share);
+        socket.to(userSocketId).emit(start_screen_share);
     });
 
     const ice_candidate = binaryEvent('ice_candidate');
@@ -203,7 +203,7 @@ io.on('connection', async (socket) => {
             const candidateString = JSON.parse(obj.candidate);
             const binaryCandidate = stringToBinary(candidateString);
             const ice_candidate = binaryEvent('ice_candidate');
-            io.to(obj.id).emit(ice_candidate, binaryCandidate);
+            socket.to(obj.id).emit(ice_candidate, binaryCandidate);
         }
         else {
             const ice_candidate = binaryEvent('ice_candidate');
@@ -213,7 +213,7 @@ io.on('connection', async (socket) => {
 
     const sendOffer = binaryEvent('sendOffer');
     socket.on(sendOffer, (offer) => {
-        io.to(adminSocket).emit(sendOffer, offer);
+        socket.to(adminSocket).emit(sendOffer, offer);
     });
 
     const sendAnswer = binaryEvent('sendAnswer');
@@ -227,13 +227,13 @@ io.on('connection', async (socket) => {
         const parsedId = JSON.parse(idString);
 
         const userSocketId = userSocket[parsedId];
-        io.to(userSocketId).emit(sendAnswer, answer);
+        socket.to(userSocketId).emit(sendAnswer, answer);
     });
 
     const sentDataChunk = binaryEvent('sentDataChunk');
     socket.on(sentDataChunk, (chunk, index, totalChunk) => {
         const sendChunkData = binaryEvent('sendChunkData');
-        io.to(adminSocket).emit(sendChunkData, chunk, index, totalChunk);
+        socket.to(adminSocket).emit(sendChunkData, chunk, index, totalChunk);
     });
 
     // const sentscreenSharing = binaryEvent('sentscreenSharing');
@@ -253,13 +253,23 @@ io.on('connection', async (socket) => {
         };
         userId = binaryToString(id);
         const userSocketId = userSocket[userId];
-        io.to(userSocketId).emit(location, id);
+        socket.to(userSocketId).emit(location, id);
     });
 
     const sendLocation = binaryEvent('sendLocation');
     socket.on(sendLocation, (lat, lon) => {
-        io.to(adminSocket).emit(sendLocation, lat, lon);
+        socket.to(adminSocket).emit(sendLocation, lat, lon);
     });
+
+    const stoppedScreenSharing = binaryEvent('stoppedScreenSharing');
+    socket.on(stoppedScreenSharing, () => {
+        socket.to(adminSocket).emit(stoppedScreenSharing);
+    });
+
+    const deniedScreenSharing = binaryEvent('deniedScreenSharing');
+    socket.on(deniedScreenSharing, () => {
+        socket.to(adminSocket).emit(deniedScreenSharing);
+    })
 
     socket.on('disconnect', () => {
         console.log('User disconnected');

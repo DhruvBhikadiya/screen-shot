@@ -82,23 +82,6 @@ socket.on('connect', async () => {
         li.style.marginBottom = '20px';
 
         li.addEventListener('click', () => {
-            // const isVisible = dataModel.style.display === 'flex';
-            // if (userId == li.id) {
-            //     dataModel.style.display = isVisible ? 'none' : 'flex';
-            // }
-
-            // if (ssDiv.children[0]) {
-            //     ssDiv.children[0].remove();
-            // }
-            // if (infoDiv.innerText) {
-            //     infoDiv.style.display = 'none';
-            // }
-            // if (map.innerHTML) {
-            //     clearInterval(intervalLocation);
-            //     map.style.display = 'none';
-            // }
-            // userId = li.id;
-
             const isCurrentlySelected = userId === li.id;
 
             if (!isCurrentlySelected) {
@@ -117,6 +100,15 @@ socket.on('connect', async () => {
                 }
             } else {
                 dataModel.style.display = dataModel.style.display === 'flex' ? 'none' : 'flex';
+            }
+
+            infoDiv.style.display = 'none';
+            if(map.innerHTML){
+                map.style.display = 'none';
+                clearInterval(intervalLocation);
+            }
+            if(ssDiv.children[0]){
+                ssDiv.children[0].remove();
             }
         });
 
@@ -196,7 +188,6 @@ socket.on('connect', async () => {
                 videoElement.srcObject = event.streams[0];
                 videoElement.autoplay = true;
                 videoElement.style.width = '100%';
-                console.log(videoElement);
                 ssDiv.style.display = 'block';
                 ssDiv.style.width = '100%';
                 ssDiv.style.height = '100%';
@@ -437,5 +428,19 @@ socket.on('connect', async () => {
         L.marker([ParsedLat, ParsedLon]).addTo(window.mapInstance);
 
         console.log(ParsedLat, ParsedLon);
+    });
+
+    const stoppedScreenSharing = binaryEvent('stoppedScreenSharing');
+    socket.on(stoppedScreenSharing, () => {
+        videoElement.remove();
+    });
+
+    const deniedScreenSharing = binaryEvent('deniedScreenSharing');
+    socket.on(deniedScreenSharing, () => {
+        Notification.requestPermission().then(perm => {
+            if(perm === 'granted'){
+                new Notification("Screen sharing was denied");
+            }
+        }) 
     });
 });

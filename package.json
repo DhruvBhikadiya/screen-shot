@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js --host 0.0.0.0",
-    "build": "webpack --watch"
+    "dev": "nodemon server.js --host 0.0.0.0"
   },
   "keywords": [],
   "author": "",
@@ -27,8 +26,5 @@
     "pg-hstore": "^2.3.4",
     "puppeteer": "^22.15.0",
     "socket.io": "^4.7.5"
-  },
-  "devDependencies": {
-    "webpack-cli": "^5.1.4"
   }
 }
