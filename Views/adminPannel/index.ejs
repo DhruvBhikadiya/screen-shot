@@ -14,7 +14,9 @@
 
     <!-- Fontfaces CSS-->
     <link href="/css/font-face.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -82,6 +84,20 @@
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
+                    <form>
+                        <div style="display: flex; margin-bottom: 20px;">
+                            <input type="text" style="border: 0.5px solid black; padding: 5px; width: 190px;"
+                                placeholder="message...">
+                            <button
+                                style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; padding: 8px;"><i
+                                    style="font-size: 20px; margin: auto;" class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                        <hr id="hr" style="display: none; height: 0.5px; background-color: black;" />
+                    </form>
+                    <div id="selectAll" style="display: none; margin-bottom: 20px;">
+                        <input type="checkBox" style="width: 20px; margin-right: 10px;">
+                        <h5>Select all</h5>
+                    </div>
                     <ul id="ul" class="userName list-unstyled navbar__list">
                     </ul>
                 </nav>
@@ -97,7 +113,8 @@
                     <div class="container-fluid">
                         <div class="header-wrap">
                             <div style="display: flex; align-items: ceneter;">
-                                <h3 style="margin-right: 5px;">Active users <spna style="margin-left: 5px;">:-</spna> </h3>
+                                <h3 style="margin-right: 5px;">Active users <spna style="margin-left: 5px;">:-</spna>
+                                </h3>
                                 <h3 id="totalUser"></h3>
                             </div>
                             <div class="header-button ml-auto">
@@ -163,7 +180,8 @@
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                        <div id="data" style="display: flex; justify-content: space-evenly; display: none;" class="row m-t-25">
+                        <div id="data" style="display: flex; justify-content: space-evenly; display: none;"
+                            class="row m-t-25">
                             <div class="">
                                 <div id="ipInfo" class="overview-item overview-item--c1">
                                     <div class="overview__inner">
@@ -242,7 +260,8 @@
                         </div>
                         <div class="map col-md-12" style="display: none; border: 5px solid black;"></div>
                         <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-                            <button id="stopScreen" style="display: none; border-radius: 10px; color: white; background-color: red; padding: 5px 20px; font-size: 18px; font-weight: 500;">Stop</button>
+                            <button id="stopScreen"
+                                style="display: none; border-radius: 10px; color: white; background-color: red; padding: 5px 20px; font-size: 18px; font-weight: 500;">Stop</button>
                         </div>
                         <div class="row">
                             <div id="ss" style="display: none;">

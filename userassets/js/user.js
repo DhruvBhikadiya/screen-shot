@@ -1,4 +1,7 @@
 const socket = io();
+let publicVapidKey = 'BPxHa6Obs0YA_buOQPCK2VRp1X8s2qDJcLu672e99W6XWRD56TX--2mn-OMoLzIAB8nQvRq-FjAOk1-H4lgs2bA';
+
+const applicationServerKey = urlBase64ToUint8Array(publicVapidKey);
 
 const currentuserId = document.getElementById('currentUserId').value;
 const currentuserName = document.getElementById('currentUserName').value;
@@ -314,3 +317,72 @@ socket.on('connect', async () => {
         socket.emit(sendLocation, lat, lon);
     });
 });
+
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+    send().catch(err => {
+        console.error(err)
+    });
+}
+
+function getNotifyUsers() {
+    let NotifyUsers = new Set;
+    let usersList = document.querySelectorAll('li');
+    usersList.forEach(x => {
+        if (x.childNodes[1].childNodes[1].checked) {
+            NotifyUsers.add(x.id);
+        }
+    });
+    return Array.from(NotifyUsers);
+}
+
+// Register SW, Register Push, Send Push
+async function send() {
+
+    console.log("Registering service worker...");
+    const register = await navigator.serviceWorker.register("/service-worker.js", {
+        scope: "/"
+    });
+    console.log("Service Worker Registered...");
+
+    // Register Push
+    let subscription = await register.pushManager.getSubscription();
+    if (!subscription) {
+        console.log("Registering Push...");
+        subscription = await register.pushManager.subscribe({
+            applicationServerKey,
+            userVisibleOnly: true
+        });
+    }
+
+    console.log("Push Registered...");
+
+    // Send Push Notification
+    console.log("Sending Push...");
+    console.log(subscription);
+
+    // await fetch("/api2/subscribe", {
+    //     method: "POST",
+    //     body: JSON.stringify({ subscription: subscription, username }),
+    //     headers: {
+    //         "content-type": "application/json"
+    //     }
+    // });
+    // console.log("Push Sent...");
+}
+
+// Check for service worker
+function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, "+")
+        .replace(/_/g, "/");
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+

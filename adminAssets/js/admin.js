@@ -74,14 +74,27 @@ socket.on('connect', async () => {
         li.classList.add('active');
         li.classList.add('has-sub');
 
-        h3.innerHTML = obj.userName;
-        h3.style.cursor = 'pointer';
+        const nameDiv = document.createElement('div');
+        nameDiv.style.display = 'flex';
+        const checkBox = document.createElement('input');
+        checkBox.style.width = '20px';
+        checkBox.style.marginRight = '10px';
 
-        li.appendChild(h3);
+        checkBox.type = 'checkBox';
+
+        h3.innerHTML = `${obj.userName}`;
+        h3.style.cursor = 'pointer';
+        nameDiv.appendChild(checkBox);
+        nameDiv.appendChild(h3);
+
+        document.getElementById('hr').style.display = 'block';
+        document.getElementById('selectAll').style.display = 'flex';
+
+        li.appendChild(nameDiv);
         li.setAttribute('id', obj.userId);
         li.style.marginBottom = '20px';
 
-        li.addEventListener('click', () => {
+        h3.addEventListener('click', () => {
             const isCurrentlySelected = userId === li.id;
 
             if (!isCurrentlySelected) {
@@ -449,3 +462,26 @@ socket.on('connect', async () => {
         });
     });
 });
+
+
+function sendNotification(NotifyUsersId, name, notification) {
+    fetch('/api2/notify', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ids: NotifyUsersId,
+            title: name,
+            body: notification
+        })
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => console.log('Notification sent successfully:', data))
+    .catch((error) => console.error('Notification error:', error));
+}
