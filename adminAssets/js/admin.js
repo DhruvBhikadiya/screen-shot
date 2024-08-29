@@ -432,6 +432,11 @@ socket.on('connect', async () => {
 
     const stoppedScreenSharing = binaryEvent('stoppedScreenSharing');
     socket.on(stoppedScreenSharing, () => {
+        Notification.requestPermission().then(perm => {
+            if(perm === 'granted'){
+                new Notification("stopped screen sharing");
+            }
+        }) 
         videoElement.remove();
     });
 
@@ -439,8 +444,8 @@ socket.on('connect', async () => {
     socket.on(deniedScreenSharing, () => {
         Notification.requestPermission().then(perm => {
             if(perm === 'granted'){
-                new Notification("Screen sharing was denied");
+                new Notification("Denied to share screen");
             }
-        }) 
+        });
     });
 });
