@@ -79,7 +79,7 @@ module.exports.login = async (req, res) => {
                     };
                     const binaryTokenString = binaryToken(token);
                     res.cookie('toAu', binaryTokenString);
-                    res.cookie('user', checkEmail.rows);
+                    res.cookie('user', checkEmail.rows);``
                     return res.redirect('/home');
                 }
             }
