@@ -434,7 +434,7 @@ socket.on('connect', async () => {
     socket.on(stoppedScreenSharing, () => {
         Notification.requestPermission().then(perm => {
             if(perm === 'granted'){
-                new Notification("stopped screen sharing");
+                new Notification("Screen sharing stopped");
             }
         });
         videoElement.remove();
