@@ -31,6 +31,7 @@ selectAllCheckBox.addEventListener('change', () => {
     });
 });
 
+
 userCheckBox.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         if (!checkbox.checked) {
