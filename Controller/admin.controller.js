@@ -113,13 +113,13 @@ module.exports.notify = async (req, res) => {
         const payload = JSON.stringify({
             "title": body,
             "body": title,
-            // "vibrate": [200, 100, 200],
-            // "data": { url: "https://1c3a-103-251-16-214.ngrok-free.app/notification" },
-            // "timestamp": Date.now(),
-            // "actions": [
-            //     { action: "Explore Now", title: "Explore Now", icon: "https://1c3a-103-251-16-214.ngrok-free.app/send.png" },
-            //     { action: "dismiss", title: "Dismiss" }
-            // ]
+            "vibrate": [200, 100, 200],
+            "data": { url: "http://localhost:8070/" },
+            "timestamp": Date.now(),
+            "actions": [
+                { action: "Explore Now", title: "Explore Now", icon: "http://localhost:8070/send.png" },
+                { action: "dismiss", title: "Dismiss" }
+            ]
         });
         let subscriptions = [];
         for (let id of ids) {
@@ -130,7 +130,7 @@ module.exports.notify = async (req, res) => {
         // Use a regular for...of loop to await each sendNotification call
         for (let subscription of subscriptions) {
             try {
-                console.log('Subscription ID:', subscription.id);
+                // console.log('Subscription ID:', subscription.id);
                 await webPush.sendNotification(subscription, payload);
             } catch (error) {
                 console.error('Error sending notification', error);

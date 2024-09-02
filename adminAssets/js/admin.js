@@ -82,7 +82,7 @@ pushForm.addEventListener('submit',async (e) => {
         body: JSON.stringify({
             ids: usersubscriptionIds,
             body: message,
-            title: 'title'
+            title: 'Admin'
         })
     })
 });

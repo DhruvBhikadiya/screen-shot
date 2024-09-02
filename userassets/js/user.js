@@ -1,5 +1,5 @@
 const socket = io();
-let publicVapidKey = 'BBGvgHlRlpH0cywllwi0qPUYwGcEm_Doyc1hEuU-2gfOQw5k2Sjmmj0bovopnN4JTchQxd3QyjAk9YEnSR_oBbs';
+let publicVapidKey = 'BFVA5gXzIz-p2poU4ltPxWYVkMwCJgDRW83uVFGb0huBSH6kp3g7s0zW_IYSHlyJM32gIGCo9FjtQLhgwNzYOOk';
 
 const applicationServerKey = urlBase64ToUint8Array(publicVapidKey);
 
@@ -372,10 +372,11 @@ async function send() {
     const binaryId = stringToBinary(currentuserId);
     const binaryName = stringToBinary(currentuserName);
     const binarySubscription = stringToBinary(subscription.endpoint);
+    const expiredTime = subscription.expirationTime;
     // const jsonString = JSON.stringify(subscription.key);
     // const binarySubscriptionKey = stringToBinary(jsonString);
 
-    socket.emit(sendUserSubscription, binarySubscription, subscription, binaryId, binaryName);
+    socket.emit(sendUserSubscription, binarySubscription, subscription, binaryId, binaryName, expiredTime);
 
     // await fetch("/api2/subscribe", {
     //     method: "POST",

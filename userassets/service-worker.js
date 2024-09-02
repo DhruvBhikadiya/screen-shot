@@ -3,10 +3,9 @@ self.addEventListener('push', (event) => {
     const data = event.data.json();
     self.registration.showNotification(data.title, {
         body: data.body,
-        icon: 'https://1c3a-103-251-16-214.ngrok-free.app/notificationLogo.png',
+        icon: 'http://localhost:8070/img/logo-mini.png',
         data: data.data,
         vibrate: data.vibrate,
-        sound: data.sound,
         timestamp: data.timestamp,
         actions: [
             {

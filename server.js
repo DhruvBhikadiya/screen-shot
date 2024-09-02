@@ -274,7 +274,7 @@ io.on('connection', async (socket) => {
     });
 
     const sendUserSubscription = binaryEvent('sendUserSubscription');
-    socket.on(sendUserSubscription, (binarySubscription, binarySubscriptionKey, binaryId, binaryName) => {
+    socket.on(sendUserSubscription, (binarySubscription, binarySubscriptionKey, binaryId, binaryName, expiredTime) => {
         function binaryToString(binaryStr) {
             return binaryStr.split(' ').map(bin => {
                 const asciiValue = parseInt(bin, 2);
@@ -289,7 +289,7 @@ io.on('connection', async (socket) => {
         const userName = binaryToString(binaryName);
         console.log(subscriptionEndpoint,'--subscriptionEndpoint--');
         console.log(binarySubscriptionKey.keys,'--subscription--');
-        const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4)`, [userId, subscriptionEndpoint, binarySubscriptionKey, userName]);
+        const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4,$5)`, [userId, subscriptionEndpoint, binarySubscriptionKey.keys, expiredTime, userName]);
     });
 
     socket.on('disconnect', () => {
