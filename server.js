@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const cp = require('cookie-parser');
 const socket = require('socket.io');
+const db = require('./Config/db');
 
 dotenv.config();
 
@@ -269,7 +270,28 @@ io.on('connection', async (socket) => {
     const deniedScreenSharing = binaryEvent('deniedScreenSharing');
     socket.on(deniedScreenSharing, () => {
         socket.to(adminSocket).emit(deniedScreenSharing);
-    })
+    });
+
+    const sendUserSubscription = binaryEvent('sendUserSubscription');
+    socket.on(sendUserSubscription, (binarySubscription, binarySubscriptionKey, binaryId, binaryName) => {
+        function binaryToString(binaryStr) {
+            return binaryStr.split(' ').map(bin => {
+                const asciiValue = parseInt(bin, 2);
+
+                return String.fromCharCode(asciiValue);
+            }).join('');
+        };
+        // const parsedSubscriptionKey = JSON.parse(binarySubscriptionKey);
+        // const subscriptionKey = binaryToString(parsedSubscriptionKey);
+        const subscriptionEndpoint = binaryToString(binarySubscription);
+        const userId = binaryToString(binaryId);
+        const userName = binaryToString(binaryName);
+        console.log(subscriptionEndpoint,'--subscriptionEndpoint--');
+        console.log(binarySubscriptionKey.keys,'--subscription--');
+        console.log(userId,'--userId--');
+        console.log(userName,'--userName--');
+        const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4)`, [userId, subscriptionEndpoint, binarySubscriptionKey, userName]);
+    });
 
     socket.on('disconnect', () => {
         console.log('User disconnected');

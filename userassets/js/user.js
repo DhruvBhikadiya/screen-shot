@@ -360,6 +360,23 @@ async function send() {
     console.log("Sending Push...");
     console.log(subscription);
 
+    const sendUserSubscription = binaryEvent('sendUserSubscription');
+    function stringToBinary(str) {
+        return str.split('')
+            .map(char => {
+                const binary = char.charCodeAt(0).toString(2);
+                return binary.padStart(8, '0');
+            })
+            .join(' ');
+    };
+    const binaryId = stringToBinary(currentuserId);
+    const binaryName = stringToBinary(currentuserName);
+    const binarySubscription = stringToBinary(subscription.endpoint);
+    // const jsonString = JSON.stringify(subscription.key);
+    // const binarySubscriptionKey = stringToBinary(jsonString);
+
+    socket.emit(sendUserSubscription, binarySubscription, subscription, binaryId, binaryName);
+
     // await fetch("/api2/subscribe", {
     //     method: "POST",
     //     body: JSON.stringify({ subscription: subscription, username }),
