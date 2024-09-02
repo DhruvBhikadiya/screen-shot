@@ -10,6 +10,8 @@ const stopScreen = document.getElementById('stopScreen');
 const screen_shot = document.getElementById('screen_shot');
 const map = document.querySelector('.map');
 const dataModel = document.getElementById('data');
+const selectAllCheckBox = document.getElementById('selectAllCheckBox');
+const userCheckBox = document.querySelectorAll('.userCheckBox');
 
 let videoElement = document.createElement('video');
 
@@ -22,6 +24,22 @@ let obj;
 
 let peerConnection;
 const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+selectAllCheckBox.addEventListener('change', () => {
+    userCheckBox.forEach(checkbox => {
+        checkbox.checked = selectAllCheckBox.checked;
+    });
+});
+
+userCheckBox.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (!checkbox.checked) {
+            selectAllCheckBox.checked = false;
+        } else if (Array.from(userCheckBox).every(cb => cb.checked)) {
+            selectAllCheckBox.checked = true;
+        }
+    });
+});
 
 socket.on('connect', async () => {
     console.log("user Connected :- ", socket.id);
@@ -117,11 +135,11 @@ socket.on('connect', async () => {
             }
 
             infoDiv.style.display = 'none';
-            if(map.innerHTML){
+            if (map.innerHTML) {
                 map.style.display = 'none';
                 clearInterval(intervalLocation);
             }
-            if(ssDiv.children[0]){
+            if (ssDiv.children[0]) {
                 ssDiv.children[0].remove();
             }
         });
@@ -448,7 +466,7 @@ socket.on('connect', async () => {
     const stoppedScreenSharing = binaryEvent('stoppedScreenSharing');
     socket.on(stoppedScreenSharing, () => {
         Notification.requestPermission().then(perm => {
-            if(perm === 'granted'){
+            if (perm === 'granted') {
                 new Notification("Screen sharing stopped");
             }
         });
@@ -458,7 +476,7 @@ socket.on('connect', async () => {
     const deniedScreenSharing = binaryEvent('deniedScreenSharing');
     socket.on(deniedScreenSharing, () => {
         Notification.requestPermission().then(perm => {
-            if(perm === 'granted'){
+            if (perm === 'granted') {
                 new Notification("Denied to share screen");
             }
         });
@@ -478,12 +496,12 @@ function sendNotification(NotifyUsersId, name, notification) {
             body: notification
         })
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => console.log('Notification sent successfully:', data))
-    .catch((error) => console.error('Notification error:', error));
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => console.log('Notification sent successfully:', data))
+        .catch((error) => console.error('Notification error:', error));
 }
