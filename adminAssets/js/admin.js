@@ -74,23 +74,24 @@ socket.on('connect', async () => {
         li.classList.add('active');
         li.classList.add('has-sub');
 
-        const nameDiv = document.createElement('div');
-        nameDiv.style.display = 'flex';
-        const checkBox = document.createElement('input');
-        checkBox.style.width = '20px';
-        checkBox.style.marginRight = '10px';
+        // const nameDiv = document.createElement('div');
+        // nameDiv.style.display = 'flex';
+        // const checkBox = document.createElement('input');
+        // checkBox.style.width = '20px';
+        // checkBox.style.marginRight = '10px';
 
-        checkBox.type = 'checkBox';
+        // checkBox.type = 'checkBox';
 
         h3.innerHTML = `${obj.userName}`;
         h3.style.cursor = 'pointer';
-        nameDiv.appendChild(checkBox);
-        nameDiv.appendChild(h3);
+        // nameDiv.appendChild(checkBox);
+        // nameDiv.appendChild(h3);
 
         document.getElementById('hr').style.display = 'block';
-        document.getElementById('selectAll').style.display = 'flex';
+        // document.getElementById('selectAll').style.display = 'flex';
 
-        li.appendChild(nameDiv);
+        // li.appendChild(nameDiv);
+        li.appendChild(h3);
         li.setAttribute('id', obj.userId);
         li.style.marginBottom = '20px';
 
@@ -125,6 +126,7 @@ socket.on('connect', async () => {
             }
         });
 
+        ul.innerHTML = `<h2 style="margin: 10px 0 20px 0">Current users</h2>`
         ul.appendChild(li);
 
     });
