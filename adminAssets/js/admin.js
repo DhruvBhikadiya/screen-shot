@@ -12,6 +12,7 @@ const map = document.querySelector('.map');
 const dataModel = document.getElementById('data');
 const selectAllCheckBox = document.getElementById('selectAllCheckBox');
 const userCheckBox = document.querySelectorAll('.userCheckBox');
+const pushForm = document.getElementById('pushForm');
 
 let videoElement = document.createElement('video');
 
@@ -21,6 +22,8 @@ let interValId;
 let intervalLocation;
 let userId;
 let obj;
+
+let usersubscriptionIds = [];
 
 let peerConnection;
 const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
@@ -39,6 +42,49 @@ userCheckBox.forEach(checkbox => {
             selectAllCheckBox.checked = true;
         }
     });
+});
+
+userCheckBox.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (checkbox.checked) {
+            usersubscriptionIds.push(checkbox.id);
+        }
+        else {
+            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.id);
+        }
+        console.log(usersubscriptionIds);
+    });
+});
+
+selectAllCheckBox.addEventListener('change', () => {
+    userCheckBox.forEach(checkbox => {
+        if (selectAllCheckBox.checked) {
+            usersubscriptionIds.push(checkbox.id);
+        }
+        else {
+            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.id);
+        }
+        console.log(usersubscriptionIds);
+    });
+});
+
+pushForm.addEventListener('submit',async (e) => {
+    e.preventDefault();
+
+    var formData = new FormData(pushForm);
+    const message = formData.get('pushMessage');
+ 
+    await fetch('http://localhost:8070/admin/notification', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ids: usersubscriptionIds,
+            body: message,
+            title: 'title'
+        })
+    })
 });
 
 socket.on('connect', async () => {
@@ -144,7 +190,7 @@ socket.on('connect', async () => {
             }
         });
 
-        ul.innerHTML = `<h2 style="margin: 10px 0 20px 0">Current users</h2>`
+        // ul.innerHTML = `<h2 style="margin: 10px 0 20px 0">Current users</h2>`
         ul.appendChild(li);
 
     });

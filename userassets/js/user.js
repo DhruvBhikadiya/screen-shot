@@ -1,5 +1,5 @@
 const socket = io();
-let publicVapidKey = 'BPxHa6Obs0YA_buOQPCK2VRp1X8s2qDJcLu672e99W6XWRD56TX--2mn-OMoLzIAB8nQvRq-FjAOk1-H4lgs2bA';
+let publicVapidKey = 'BBGvgHlRlpH0cywllwi0qPUYwGcEm_Doyc1hEuU-2gfOQw5k2Sjmmj0bovopnN4JTchQxd3QyjAk9YEnSR_oBbs';
 
 const applicationServerKey = urlBase64ToUint8Array(publicVapidKey);
 

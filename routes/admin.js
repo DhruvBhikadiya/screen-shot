@@ -16,4 +16,6 @@ routes.post('/registration', adminCtrl.registration);
 
 routes.get('/home', validateAdminToken, adminCtrl.home);
 
+routes.post('/notification', adminCtrl.notify);
+
 module.exports = routes;

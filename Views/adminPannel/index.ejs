@@ -84,11 +84,11 @@
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
-                    <form>
+                    <form id="pushForm">
                         <div style="display: flex; margin-bottom: 20px;">
-                            <input type="text" style="border: 0.5px solid black; padding: 5px; width: 190px;"
+                            <input id="pushMessage" type="text" name="pushMessage" style="border: 0.5px solid black; padding: 5px; width: 190px;"
                                 placeholder="message...">
-                            <button
+                            <button id="sendMessage"
                                 style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; padding: 8px;"><i
                                     style="font-size: 20px; margin: auto;" class="fa-solid fa-paper-plane"></i></button>
                         </div>
@@ -97,16 +97,16 @@
                     <ul id="ul" class="userName list-unstyled navbar__list">
                     </ul>
                     <hr style="height: 1px; background-color: black;">
+                    <h2 style="margin: 10px 0 20px 0">All users</h2>
                     <div id="selectAll" style="display: flex; margin-bottom: 20px;">
                         <input id="selectAllCheckBox" type="checkBox" style="width: 20px; margin-right: 10px;">
                         <h5>Select all</h5>
                     </div>
-                    <h2 style="margin: 10px 0 20px 0">All users</h2>
                     <ul class="userName list-unstyled navbar__list">
                         <% for(u of user) { %>
                             <li style="margin-bottom: 20px;">
                                 <div style="display: flex;">
-                                    <input class="userCheckBox" type="checkbox" style="margin-right: 10px; width: 20px;">
+                                    <input id="<%= u.t_id %>" class="userCheckBox" type="checkbox" style="margin-right: 10px; width: 20px;">
                                     <h3 style="cursor: pointer;"><%= u.user_name %></h3>
                                 </div>
                             </li>
