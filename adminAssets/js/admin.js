@@ -47,10 +47,10 @@ userCheckBox.forEach(checkbox => {
 userCheckBox.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         if (checkbox.checked) {
-            usersubscriptionIds.push(checkbox.id);
+            usersubscriptionIds.push(checkbox.value);
         }
         else {
-            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.id);
+            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.value);
         }
         console.log(usersubscriptionIds);
     });
@@ -59,10 +59,10 @@ userCheckBox.forEach(checkbox => {
 selectAllCheckBox.addEventListener('change', () => {
     userCheckBox.forEach(checkbox => {
         if (selectAllCheckBox.checked) {
-            usersubscriptionIds.push(checkbox.id);
+            usersubscriptionIds.push(checkbox.value);
         }
         else {
-            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.id);
+            usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.value);
         }
         console.log(usersubscriptionIds);
     });
@@ -73,6 +73,7 @@ pushForm.addEventListener('submit',async (e) => {
 
     var formData = new FormData(pushForm);
     const message = formData.get('pushMessage');
+    const title = formData.get('pushTitle');
  
     await fetch('http://localhost:8070/admin/notification', {
         method: 'POST',
@@ -82,7 +83,7 @@ pushForm.addEventListener('submit',async (e) => {
         body: JSON.stringify({
             ids: usersubscriptionIds,
             body: message,
-            title: 'Admin'
+            title: title
         })
     })
 });
