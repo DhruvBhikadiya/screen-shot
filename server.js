@@ -288,8 +288,6 @@ io.on('connection', async (socket) => {
         const userName = binaryToString(binaryName);
         console.log(subscriptionEndpoint,'--subscriptionEndpoint--');
         console.log(binarySubscriptionKey.keys,'--subscription--');
-        console.log(userId,'--userId--');
-        console.log(userName,'--userName--');
         const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4)`, [userId, subscriptionEndpoint, binarySubscriptionKey, userName]);
     });
 
