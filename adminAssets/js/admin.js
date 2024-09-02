@@ -60,6 +60,9 @@ selectAllCheckBox.addEventListener('change', () => {
     userCheckBox.forEach(checkbox => {
         if (selectAllCheckBox.checked) {
             usersubscriptionIds.push(checkbox.value);
+            usersubscriptionIds = usersubscriptionIds.filter((value, index, self) => self.indexOf(value) === index);
+
+
         }
         else {
             usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.value);
@@ -75,7 +78,7 @@ pushForm.addEventListener('submit',async (e) => {
     const message = formData.get('pushMessage');
     const title = formData.get('pushTitle');
  
-    await fetch('http://localhost:8070/admin/notification', {
+    await fetch('https://a480-2405-201-201c-51bc-2845-f1a8-6bac-57a1.ngrok-free.app/admin/notification', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
