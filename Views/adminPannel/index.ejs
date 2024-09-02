@@ -100,6 +100,12 @@
                     </div>
                     <ul id="ul" class="userName list-unstyled navbar__list">
                     </ul>
+                    <hr>
+                    <ul class="userName list-unstyled navbar__list">
+                        <% for(u of user) { %>
+                            <li><%= u.user_name %></li>
+                        <% } %>
+                    </ul>
                 </nav>
             </div>
         </aside>

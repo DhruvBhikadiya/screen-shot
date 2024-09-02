@@ -99,7 +99,9 @@ module.exports.logout = (req, res) => {
     }
 };
 
-module.exports.home = (req, res) => {
+module.exports.home = async (req, res) => {
     const currentUser = req.cookies.user;
-    return res.render('adminPannel/index', { currentUser });
+    const data = await db.query('select * from ss_user_subscription');
+    const user = data.rows;
+    return res.render('adminPannel/index', { currentUser, user });
 };
