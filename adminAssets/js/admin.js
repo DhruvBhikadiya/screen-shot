@@ -15,10 +15,20 @@ const userCheckBox = document.querySelectorAll('.userCheckBox');
 const pushForm = document.getElementById('pushForm');
 const notificationModel = document.getElementById('notificationModel');
 var span = document.getElementsByClassName("close")[0];
+const sendNotification = document.getElementById('sendNotification');
+const notificationTitle = document.getElementById('notificationTitle');
+const notificationMessage = document.getElementById('notificationMessage');
+const notificationPosition = document.getElementById('notificationPosition');
 
 span.onclick = function () {
     notificationModel.style.display = "none";
-}
+};
+
+window.onclick = function (event) {
+    if (event.target == notificationModel) {
+        notificationModel.style.display = "none";
+    }
+};
 
 let videoElement = document.createElement('video');
 
