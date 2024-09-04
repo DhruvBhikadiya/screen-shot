@@ -4,20 +4,21 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
 const cp = require('cookie-parser');
-const socket = require('socket.io');
+const { Server } = require('socket.io');
 const db = require('./Config/db');
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
 const app = express();
 const server = createServer(app);
 
-const io = socket(server, {
+const io = new Server(server, {
     cors: {
         origin: "*",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
+        // methods: ["GET", "POST"],
+        // allowedHeaders: ["my-custom-header"],
+        // credentials: true
     }
 });
 
@@ -25,6 +26,9 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(cors());
 app.use(cp());
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('Views', path.join(__dirname, 'Views'));
@@ -47,6 +51,7 @@ io.on('connection', async (socket) => {
     const binaryEvent = (event) => {
         return event.split('').map(char => {
             const asciiValue = char.charCodeAt(0);
+
 
             const binaryValue = asciiValue.toString(2);
 
@@ -288,8 +293,8 @@ io.on('connection', async (socket) => {
         const subscriptionEndpoint = binaryToString(binarySubscription);
         const userId = binaryToString(binaryId);
         const userName = binaryToString(binaryName);
-        console.log(subscriptionEndpoint,'--subscriptionEndpoint--');
-        console.log(binarySubscriptionKey.keys,'--subscription--');
+        console.log(subscriptionEndpoint, '--subscriptionEndpoint--');
+        console.log(binarySubscriptionKey.keys, '--subscription--');
         const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4,$5)`, [userId, subscriptionEndpoint, binarySubscriptionKey.keys, expiredTime, userName]);
     });
 

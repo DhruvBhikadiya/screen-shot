@@ -78,7 +78,7 @@ pushForm.addEventListener('submit',async (e) => {
     const message = formData.get('pushMessage');
     const title = formData.get('pushTitle');
  
-    await fetch('https://a480-2405-201-201c-51bc-2845-f1a8-6bac-57a1.ngrok-free.app/admin/notification', {
+    await fetch('http://localhost:8070/admin/notification', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
