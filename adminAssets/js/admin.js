@@ -13,6 +13,12 @@ const dataModel = document.getElementById('data');
 const selectAllCheckBox = document.getElementById('selectAllCheckBox');
 const userCheckBox = document.querySelectorAll('.userCheckBox');
 const pushForm = document.getElementById('pushForm');
+const notificationModel = document.getElementById('notificationModel');
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function () {
+    notificationModel.style.display = "none";
+}
 
 let videoElement = document.createElement('video');
 
@@ -69,13 +75,13 @@ selectAllCheckBox.addEventListener('change', () => {
     });
 });
 
-pushForm.addEventListener('submit',async (e) => {
+pushForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     var formData = new FormData(pushForm);
     const message = formData.get('pushMessage');
     const title = formData.get('pushTitle');
- 
+
     await fetch('http://localhost:8070/admin/notification', {
         method: 'POST',
         headers: {
@@ -246,7 +252,7 @@ socket.on('connect', async () => {
     });
 
     document.getElementById('notification').addEventListener('click', () => {
-        
+        notificationModel.style.display = 'block';
     });
 
     const sendOffer = binaryEvent('sendOffer');
