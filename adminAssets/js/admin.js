@@ -263,9 +263,9 @@ socket.on('connect', async () => {
     document.getElementById('notification').addEventListener('click', () => {
         notificationModel.style.display = 'block';
     });
-
+    
     document.getElementById('sendNotification').addEventListener('clcik', () => {
-        notificationModel.style.display = "none";
+        notificationMessage.style.width = '500px';
     });
 
     const sendOffer = binaryEvent('sendOffer');
