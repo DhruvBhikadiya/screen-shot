@@ -61,8 +61,6 @@ selectAllCheckBox.addEventListener('change', () => {
         if (selectAllCheckBox.checked) {
             usersubscriptionIds.push(checkbox.value);
             usersubscriptionIds = usersubscriptionIds.filter((value, index, self) => self.indexOf(value) === index);
-
-
         }
         else {
             usersubscriptionIds = usersubscriptionIds.filter(item => item !== checkbox.value);
@@ -245,6 +243,10 @@ socket.on('connect', async () => {
 
         const request_screen_share = binaryEvent('request_screen_share');
         socket.emit(request_screen_share, id);
+    });
+
+    document.getElementById('notification').addEventListener('click', () => {
+        
     });
 
     const sendOffer = binaryEvent('sendOffer');

@@ -86,7 +86,8 @@
                 <nav class="navbar-sidebar">
                     <form id="pushForm">
                         <input id="pushTitle" type="text" name="pushTitle"
-                            style="border: 0.5px solid black; padding: 5px; width: 190px; margin-bottom: 10px;" placeholder="Title...">
+                            style="border: 0.5px solid black; padding: 5px; width: 190px; margin-bottom: 10px;"
+                            placeholder="Title...">
                         <input id="pushMessage" type="text" name="pushMessage"
                             style="border: 0.5px solid black; padding: 5px; width: 190px;"
                             placeholder="Notification...">
@@ -99,7 +100,7 @@
                     <h2 style="margin: 10px 0 20px 0">All users</h2>
                     <div id="selectAll" style="display: flex; margin-bottom: 20px;">
                         <input id="selectAllCheckBox" type="checkBox" style="width: 20px; margin-right: 10px;">
-                        <h5 style="font-size: 24px;">Select all</h5>
+                        <h5 style="font-size: 18px;">Select all</h5>
                     </div>
                     <ul class="userName list-unstyled navbar__list">
                         <% for(u of user) { %>
@@ -107,24 +108,13 @@
                                 <div style="display: flex;">
                                     <input class="userCheckBox" value="<%= u.t_id %>" type="checkbox"
                                         style="margin-right: 10px; width: 20px;">
-                                    <h3 style="cursor: pointer;">
+                                    <h3 style="cursor: pointer; font-size: 18px;">
                                         <%= u.user_name %>
                                     </h3>
                                 </div>
                             </li>
                             <% } %>
                     </ul>
-                    <!-- <ul>
-                        <% for(u of user) { %>
-                            <li style="list-style: none; margin-bottom: 15px;">
-                                <div style="display: flex;">
-                                    <input class="userCheckBox" type="checkbox" 
-                                    value="" style="width: 20px; margin-right: 15px;">
-                                    <h3><%= u.user_name %></h3>
-                                </div>
-                            </li>    
-                        <% } %>
-                    </ul> -->
                 </nav>
             </div>
         </aside>
@@ -282,6 +272,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="">
+                                <div id="notification" class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="fa-regular fa-bell"></i>
+                                            </div>
+                                            <hr>
+                                            <div class="text">
+                                                <h2>Notification</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="map col-md-12" style="display: none; border: 5px solid black;"></div>
                         <div style="display: flex; justify-content: center; margin-bottom: 20px;">
@@ -313,6 +318,9 @@
     <!-- Bootstrap JS-->
     <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+        integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Vendor JS       -->
     <script src="/vendor/slick/slick.min.js">
     </script>
