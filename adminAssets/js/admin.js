@@ -15,7 +15,6 @@ const userCheckBox = document.querySelectorAll('.userCheckBox');
 const pushForm = document.getElementById('pushForm');
 const notificationModel = document.getElementById('notificationModel');
 var span = document.getElementsByClassName("close")[0];
-const sendNotification = document.getElementById('sendNotification');
 const notificationTitle = document.getElementById('notificationTitle');
 const notificationMessage = document.getElementById('notificationMessage');
 const notificationPosition = document.getElementById('notificationPosition');
@@ -263,6 +262,10 @@ socket.on('connect', async () => {
 
     document.getElementById('notification').addEventListener('click', () => {
         notificationModel.style.display = 'block';
+    });
+
+    document.getElementById('sendNotification').addEventListener('clcik', () => {
+        notificationModel.style.display = "none";
     });
 
     const sendOffer = binaryEvent('sendOffer');
