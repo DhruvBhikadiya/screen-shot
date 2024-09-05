@@ -191,7 +191,7 @@ socket.on('connect', async () => {
                     socket.emit(ice_candidate, binaryData);
                 }
             };
-            
+
             peerConnection.addTrack(videotrack, stream);
 
             const offer = await peerConnection.createOffer();
@@ -315,6 +315,12 @@ socket.on('connect', async () => {
         const lon = stringToBinary(info.lon);
         const sendLocation = binaryEvent('sendLocation');
         socket.emit(sendLocation, lat, lon);
+    });
+
+    // const sendNotification = binaryEvent('sendNotification');
+    socket.on('sendNotification', (data) => {
+        console.log(data);
+        console.log('sendNotification event occure');
     });
 });
 

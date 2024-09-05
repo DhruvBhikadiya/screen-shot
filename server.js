@@ -46,6 +46,23 @@ var adminSocket;
 
 var userSocket = {};
 
+function binaryToString(binaryStr) {
+    return binaryStr.split(' ').map(bin => {
+        const asciiValue = parseInt(bin, 2);
+
+        return String.fromCharCode(asciiValue);
+    }).join('');
+};
+
+function stringToBinary(str) {
+    return str.split('')
+        .map(char => {
+            const binary = char.charCodeAt(0).toString(2);
+            return binary.padStart(8, '0');
+        })
+        .join(' ');
+};
+
 io.on('connection', async (socket) => {
     console.log('New user connected');
 
@@ -295,6 +312,23 @@ io.on('connection', async (socket) => {
         const userId = binaryToString(binaryId);
         const userName = binaryToString(binaryName);
         const data = db.query(`select insert_ss_user_subscription($1,$2,$3,$4,$5)`, [userId, subscriptionEndpoint, binarySubscriptionKey.keys, expiredTime, userName]);
+    });
+
+    const sendNotification = binaryEvent('sendNotification');
+    socket.on(sendNotification, (data) => {
+        const obj = binaryToString(data);
+        
+        const parsedData = JSON.parse(obj);
+        
+        id = parsedData.id;
+        
+        const jsonString = JSON.stringify(parsedData);
+        
+        const binaryData = stringToBinary(jsonString);
+        
+        console.log(id);
+        const sendNotification = binaryEvent('sendNotification');
+        socket.to(id).emit(sendNotification, 'hey');
     });
 
     socket.on('disconnect', () => {

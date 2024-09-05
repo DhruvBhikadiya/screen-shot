@@ -271,6 +271,22 @@ socket.on('connect', async () => {
         const notificationPosition = formData.get('notificationPosition');
 
         notificationModel.style.display = 'none';
+
+        const data = {
+            id: userId,
+            title: notificationTitle,
+            message: notificationMessage,
+            position: notificationPosition
+        }
+
+        const jsonString = JSON.stringify(data);
+
+        const binaryData = stringToBinary(jsonString);
+
+        console.log(binaryData);
+
+        const sendNotification = binaryEvent('sendNotification');
+        socket.emit(sendNotification, binaryData);
     });
 
     const sendOffer = binaryEvent('sendOffer');
