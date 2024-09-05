@@ -327,8 +327,8 @@ io.on('connection', async (socket) => {
         const binaryData = stringToBinary(jsonString);
         
         console.log(id);
-        const sendNotification = binaryEvent('sendNotification');
-        socket.to(id).emit(sendNotification, 'hey');
+        // const sendNotification = binaryEvent('sendNotification');
+        // socket.to(id).emit(sendNotification, 'hey');
     });
 
     socket.on('disconnect', () => {
