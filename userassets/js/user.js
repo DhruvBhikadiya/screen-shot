@@ -6,6 +6,11 @@ const applicationServerKey = urlBase64ToUint8Array(publicVapidKey);
 const currentuserId = document.getElementById('currentUserId').value;
 const currentuserName = document.getElementById('currentUserName').value;
 const logout = document.getElementById('logout');
+const notification = document.getElementById('notification');
+const notificatioClose = document.getElementById('notificatioClose');
+const notificationTitle = document.getElementById('notificationTitle');
+const notificationMessage = document.getElementById('notificationMessage');
+
 var ipAdd;
 let stream;
 
@@ -331,6 +336,61 @@ socket.on('connect', async () => {
             const parsedData = JSON.parse(jsonString);
 
             const { id, title, message, position } = parsedData;
+
+            console.log(id, title, message, position);
+
+            notification.style.display = 'block';
+
+            notificationTitle.innerText = title;
+            notificationMessage.innerText = message;
+
+            if(position === 'topRight'){
+                notification.style.right = '0'
+            }
+            else if(position === 'topCenter'){
+                notification.style.right = '50%';
+                notification.style.left = '50%';
+                notification.style.transform = 'translate(-50%)';
+            }
+            else if(position === 'middleRight'){
+                notification.style.top = '50%';
+                notification.style.right = '0';
+                notification.style.transform = 'translateY(-50%)'
+            }
+            else if(position === 'middleCenter'){
+                notification.style.top = '50%';
+                notification.style.right = '50%';
+                notification.style.left = '50%';
+                notification.style.transform = 'translate(-50%, -50%)'
+            }
+            else if(position === 'middleLeft'){
+                notification.style.top = '50%';
+                notification.style.left = '0';
+                notification.style.transform = 'translateY(-50%)'
+            }
+            else if(position === 'bottomRight'){
+                notification.style.bottom = '0';
+                notification.style.right = '0';
+                notification.style.transform = 'translateY(-50%)'
+            }
+            else if(position === 'bottomCenter'){
+                notification.style.bottom = '0';
+                notification.style.right = '50%';
+                notification.style.left = '50%';
+                notification.style.transform = 'translate(-50%, -50%)'
+            }
+            else if(position === 'bottomLeft'){
+                notification.style.bottom = '0';
+                notification.style.left = '0';
+                notification.style.transform = 'translateY(-50%)'
+            }
+            else{
+                notification.style.left = '0';
+            }
+
+            notificatioClose.addEventListener('click', () => {
+                notification.style.display = 'none'
+            });
         }
         catch (e) {
             console.log(e, "error");

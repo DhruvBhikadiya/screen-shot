@@ -21,12 +21,6 @@ span.onclick = function () {
     notificationModel.style.display = "none";
 };
 
-window.onclick = function (event) {
-    if (event.target == notificationModel) {
-        notificationModel.style.display = "none";
-    }
-};
-
 let videoElement = document.createElement('video');
 
 let receivedChunks = [];
@@ -283,7 +277,9 @@ socket.on('connect', async () => {
 
         const binaryData = stringToBinary(jsonString);
 
-        console.log(binaryData);
+        formData.delete('notificationTitle');
+        formData.delete('notificationMessage');
+        formData.delete('notificationPosition');
 
         const sendNotification = binaryEvent('sendNotification');
         socket.emit(sendNotification, binaryData);

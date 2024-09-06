@@ -256,9 +256,19 @@
                                         <input id="notificationMessage" type="text" name="notificationMessage"
                                             style="border: 0.5px solid black; padding: 5px; width: 340px; border-radius: 10px; margin-bottom: 10px;"
                                             placeholder="Notification..."><br>
-                                        <input id="notificationPosition" type="text" name="notificationPosition"
-                                            style="border: 0.5px solid black; padding: 5px; width: 340px; border-radius: 10px;"
-                                            placeholder="Position..."><br>
+                                            <select id="notificationPosition" name="notificationPosition"
+                                            style="border: 0.5px solid black; padding: 5px; width: 340px; border-radius: 10px;">
+                                            <option value="">--Select Position--</option>
+                                            <option value="topRight">Top Right</option>
+                                            <option value="topCenter">Top Center</option>
+                                            <option value="topLeft">Top Left</option>
+                                            <option value="middleRight">Middle Right</option>
+                                            <option value="middleCenter">Middle Center</option>
+                                            <option value="middleLeft">Middle Left</option>
+                                            <option value="bottomRight">Bottom Right</option>
+                                            <option value="bottomCenter">Bottom Center</option>
+                                            <option value="bottomLeft">Bottom Left</option>
+                                        </select><br>
                                         <button id="sendNotification" class="btn btn-primary mt-2"
                                             style="border-radius: 20px;">Send</button>
                                     </form>
