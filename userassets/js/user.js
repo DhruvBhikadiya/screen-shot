@@ -22,6 +22,12 @@ const binaryEvent = (event) => {
     }).join(' ');
 };
 
+function binaryToString(binary) {
+    return binary.split(' ')
+        .map(bin => String.fromCharCode(parseInt(bin, 2)))
+        .join('');
+};
+
 socket.on('connect', async () => {
     const binaryEvent = (event) => {
         return event.split('').map(char => {
@@ -317,10 +323,18 @@ socket.on('connect', async () => {
         socket.emit(sendLocation, lat, lon);
     });
 
-    // const sendNotification = binaryEvent('sendNotification');
-    socket.on('sendNotification', (data) => {
-        console.log(data);
-        console.log('sendNotification event occure');
+    const sendNotification = binaryEvent('sendNotification');
+    socket.on(sendNotification, (data) => {
+        try {
+            const jsonString = binaryToString(data);
+
+            const parsedData = JSON.parse(jsonString);
+
+            const { id, title, message, position } = parsedData;
+        }
+        catch (e) {
+            console.log(e, "error");
+        }
     });
 });
 

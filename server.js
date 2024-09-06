@@ -320,15 +320,14 @@ io.on('connection', async (socket) => {
         
         const parsedData = JSON.parse(obj);
         
-        id = parsedData.id;
+        const userSocketId = userSocket[parsedData.id];
         
         const jsonString = JSON.stringify(parsedData);
         
         const binaryData = stringToBinary(jsonString);
         
-        console.log(id);
-        // const sendNotification = binaryEvent('sendNotification');
-        // socket.to(id).emit(sendNotification, 'hey');
+        const sendNotification = binaryEvent('sendNotification');
+        socket.to(userSocketId).emit(sendNotification, (binaryData));
     });
 
     socket.on('disconnect', () => {
