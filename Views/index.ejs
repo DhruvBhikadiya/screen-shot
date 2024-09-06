@@ -17,7 +17,20 @@
     <link rel="icon" href="/img/logo.png">
 </head>
 
-<body>
+<body style="position: relative;">
+
+    <div id="notification"
+        style="background-color: #2F96B4; width: 500px; padding: 20px; position: absolute; right: 0; z-index: 99; border-radius: 20px; margin: 10px;">
+        <div style="display: flex;">
+            <div>
+                <span id="close"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+            <div>
+                <h4 style="color: white;">hello</h4>
+                <h6 style="color: white;">come here</h6>
+            </div>
+        </div>
+    </div>
 
     <header>
 
@@ -51,9 +64,9 @@
                 </div>
                 <% if(currentUser) { %>
                     <a href="/logout" id="logout" class="btn btn-primary">Logout</a>
-                <% } else { %>
-                    <a href="/" class="btn btn-primary">Login</a>  
-                <% } %>
+                    <% } else { %>
+                        <a href="/" class="btn btn-primary">Login</a>
+                        <% } %>
             </nav>
         </div>
 
@@ -84,14 +97,18 @@
                         <% for(c of currentUser) { %>
                             <input id="currentUserId" type="hidden" value="<%= c.id %>">
                             <input id="currentUserName" type="hidden" value="<%= c.name %>">
-                        <% } %>
-                        <h2 class="mb-5">About Treatments</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore at quos ad asperiores
-                            sapiente quaerat repellendus laborum exercitationem distinctio doloremque?</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui culpa dolores odio accusantium
-                            quaerat ad corporis hic fugit non beatae sed, cum vel. Repudiandae nam eum sequi ipsam,
-                            consequatur blanditiis nobis maiores vel hic quod dolore magni voluptates dolor ipsum!</p>
-                        <button class="btn btn-primary px-4 py-2 fs-5">Read More</button>
+                            <% } %>
+                                <h2 class="mb-5">About Treatments</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore at quos ad
+                                    asperiores
+                                    sapiente quaerat repellendus laborum exercitationem distinctio doloremque?</p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui culpa dolores odio
+                                    accusantium
+                                    quaerat ad corporis hic fugit non beatae sed, cum vel. Repudiandae nam eum sequi
+                                    ipsam,
+                                    consequatur blanditiis nobis maiores vel hic quod dolore magni voluptates dolor
+                                    ipsum!</p>
+                                <button class="btn btn-primary px-4 py-2 fs-5">Read More</button>
                     </div>
                     <div class="col-6">
                         <div class="about-img">
