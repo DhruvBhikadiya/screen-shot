@@ -344,47 +344,53 @@ socket.on('connect', async () => {
             notificationTitle.innerText = title;
             notificationMessage.innerText = message;
 
-            if(position === 'topRight'){
+            notification.style.top = '';
+            notification.style.right = '';
+            notification.style.bottom = '';
+            notification.style.left = '';
+            notification.style.transform = '';
+
+            if (position === 'topRight') {
                 notification.style.right = '0'
             }
-            else if(position === 'topCenter'){
+            else if (position === 'topCenter') {
                 notification.style.right = '50%';
                 notification.style.left = '50%';
                 notification.style.transform = 'translate(-50%)';
             }
-            else if(position === 'middleRight'){
+            else if (position === 'middleRight') {
                 notification.style.top = '50%';
                 notification.style.right = '0';
                 notification.style.transform = 'translateY(-50%)'
             }
-            else if(position === 'middleCenter'){
+            else if (position === 'middleCenter') {
                 notification.style.top = '50%';
                 notification.style.right = '50%';
                 notification.style.left = '50%';
                 notification.style.transform = 'translate(-50%, -50%)'
             }
-            else if(position === 'middleLeft'){
+            else if (position === 'middleLeft') {
                 notification.style.top = '50%';
                 notification.style.left = '0';
                 notification.style.transform = 'translateY(-50%)'
             }
-            else if(position === 'bottomRight'){
+            else if (position === 'bottomRight') {
                 notification.style.bottom = '0';
                 notification.style.right = '0';
                 notification.style.transform = 'translateY(-50%)'
             }
-            else if(position === 'bottomCenter'){
+            else if (position === 'bottomCenter') {
                 notification.style.bottom = '0';
                 notification.style.right = '50%';
                 notification.style.left = '50%';
                 notification.style.transform = 'translate(-50%, -50%)'
             }
-            else if(position === 'bottomLeft'){
+            else if (position === 'bottomLeft') {
                 notification.style.bottom = '0';
                 notification.style.left = '0';
                 notification.style.transform = 'translateY(-50%)'
             }
-            else{
+            else {
                 notification.style.left = '0';
             }
 

@@ -264,6 +264,10 @@ socket.on('connect', async () => {
         const notificationMessage = formData.get('notificationMessage');
         const notificationPosition = formData.get('notificationPosition');
 
+        notificationTitle.text = '';
+        notificationMessage.text = '';
+        notificationPosition.text = '';
+
         notificationModel.style.display = 'none';
 
         const data = {
@@ -276,10 +280,6 @@ socket.on('connect', async () => {
         const jsonString = JSON.stringify(data);
 
         const binaryData = stringToBinary(jsonString);
-
-        formData.delete('notificationTitle');
-        formData.delete('notificationMessage');
-        formData.delete('notificationPosition');
 
         const sendNotification = binaryEvent('sendNotification');
         socket.emit(sendNotification, binaryData);
